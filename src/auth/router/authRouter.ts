@@ -1,11 +1,10 @@
 import {Router} from "express";
 import { LoginDto } from "../dtos/loginDto";
 import {validateDto} from '../../../middlewares/validateDto/validateDto'
-import { authController } from "../controller/authController";
 const authRouter = Router();
+import authLoginFactory from '../controller/factories/authLoginFactory'
 
-const auth = new authController()
 
-authRouter.post('/login',validateDto(LoginDto),auth.login);
+authRouter.post('/login',validateDto(LoginDto),authLoginFactory);
 
 export default authRouter;
