@@ -3,7 +3,6 @@ import { ContactData } from "../../contact/interfaces/contactData";
 import { ContactEntity } from "../../entities/contact.entity";
 import dataSource from "../../connection/connection";
 import IContactRepository from "../interfaces/contactRepository";
-import e from "express";
 
 export class contactRepository implements IContactRepository{
     contacts:Repository<ContactEntity>;
@@ -26,6 +25,15 @@ export class contactRepository implements IContactRepository{
             return await this.contacts.exists({where:{email:email}});
         } catch (error) {
             console.log(error,"context: checkEmialExist")
+            return null;
+        }
+    }
+
+    async checkContactIdExist(id: string): Promise<boolean | null> {
+        try {
+            return await this.contacts.exists({where:{id:id}});
+        } catch (error) {
+            console.log(error,"context: checkContactIdExist")
             return null;
         }
     }

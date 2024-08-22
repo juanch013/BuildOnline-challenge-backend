@@ -1,5 +1,5 @@
-import CreateContactResponse from "../../../common/types/createContactResponse";
-import GetContactResponse from "../../../common/types/getContactResponse";
+import CreateContactResponse from "../../../common/types/responses/createContactResponse";
+import GetContactResponse from "../../../common/types/responses/getContactResponse";
 import { CreateContactDto } from "../dtos/createContactDto";
 
 export interface IContactService{

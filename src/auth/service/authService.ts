@@ -1,5 +1,5 @@
 import { InternalError, UnautorizedError } from "../../../common/errors/errors";
-import LoginResponse from "../../../common/types/loginResponse";
+import LoginResponse from "../../../common/types/responses/loginResponse";
 import IUserRepository from "../../repositories/interfaces/userRepository";
 import { LoginDto } from "../dtos/loginDto";
 import { IAuthService } from "../interfaces/authService";

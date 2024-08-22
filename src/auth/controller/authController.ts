@@ -1,6 +1,5 @@
 import { IAuthService } from './../interfaces/authService';
 import { Request,Response } from "express"
-import LoginResponse from '../../../common/types/loginResponse'
 import { IAuthController } from '../interfaces/authController';
 import {InternalError, UnautorizedError} from '../../../common/errors/errors'
 
