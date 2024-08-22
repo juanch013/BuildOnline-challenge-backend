@@ -13,7 +13,7 @@ export class contactService implements IContactService{
         this.contact = contact;
     }
 
-    async createContact(contact: CreateContactDto): Promise< CreateContactResponse | null> {
+    async createContact(contact: CreateContactDto): Promise< CreateContactResponse> {
         try {
             const {name,email,phoneNumber} = contact
             
