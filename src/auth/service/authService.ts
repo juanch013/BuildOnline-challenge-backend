@@ -1,3 +1,5 @@
+import { InternalError, UnautorizedError } from "../../../common/errors/errors";
+import LoginResponse from "../../../common/types/loginResponse";
 import IUserRepository from "../../repositories/interfaces/userRepository";
 import { LoginDto } from "../dtos/loginDto";
 import { IAuthService } from "../interfaces/authService";
@@ -11,20 +13,29 @@ export default class AuthService implements IAuthService{
         this.users = users;    
     }
 
-    async login(body:LoginDto):Promise<string | null>{
+    async login(body:LoginDto):Promise<LoginResponse>{
         try {
             const {password,username} = body;
 
             const userData = await this.findUserByCredentials(username,password);
 
             if(!userData){
-                return null;
+                return UnautorizedError
             }
 
-            return this.createJwt(userData);
+            const token =  this.createJwt(userData);
+            
+            
+            const responseBody:LoginResponse = {
+                code:200,
+                message:"user logged in",
+                data:{token}
+            }
+            return responseBody;
+
         } catch (error) {
             console.log(error,"context: login");
-            return null;
+            return InternalError;
         }
     }
 

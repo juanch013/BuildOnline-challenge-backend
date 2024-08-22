@@ -10,29 +10,13 @@ export class authController implements IAuthController {
         this.auth = auth;
     }
 
-    async login(req:Request,res:Response):Promise<LoginResponse>{
+    async login(req:Request,res:Response):Promise<Response>{
         try {
             const loginResponse = await this.auth.login(req.body);
-
-            if(!loginResponse){
-                res.status(UnautorizedError.code).json(UnautorizedError)
-                return UnautorizedError
-            }
-            
-            const responseBody:LoginResponse = {
-                code:200,
-                message:"user logged in",
-                data:{token:loginResponse}
-            }
-
-            res.status(responseBody.code).json(responseBody)
-            return responseBody;
-
+            return res.status(loginResponse.code).json(loginResponse);
         } catch (error) {
             console.log(error,"context: login")
-
-            res.status(InternalError.code).json(InternalError)
-            return InternalError
+            return res.status(InternalError.code).json(InternalError)
         }
     }
 }
