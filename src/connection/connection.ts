@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import { DataSource } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
+import { ContactEntity } from '../entities/contact.entity';
 dotenv.config()
 
 const dataSource = new DataSource({
@@ -10,7 +11,7 @@ const dataSource = new DataSource({
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: [UserEntity],
+    entities: [UserEntity,ContactEntity],
     logging:false,
     synchronize: false,
 });
