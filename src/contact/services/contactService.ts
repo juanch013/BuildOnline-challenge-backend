@@ -1,9 +1,9 @@
 import IContactRepository from "../../repositories/interfaces/contactRepository";
 import { CreateContactDto } from "../dtos/createContactDto";
 import { IContactService } from "../interfaces/contactService";
-import CreateContactResponse from "../../../common/types/createContactResponse"
+import CreateContactResponse from "../../../common/types/responses/createContactResponse"
 import { InternalError } from "../../../common/errors/errors";
-import GetContactResponse from '../../../common/types/getContactResponse';
+import GetContactResponse from '../../../common/types/responses/getContactResponse';
 
 export class contactService implements IContactService{
     contact:IContactRepository
