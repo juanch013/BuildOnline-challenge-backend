@@ -1,13 +1,13 @@
-import { userRepository } from "../../repositories/repositories/userRepository";
+import IUserRepository from "../../repositories/interfaces/userRepository";
 import { LoginDto } from "../dtos/loginDto";
 import { IAuthService } from "../interfaces/authService";
 import userData from "../interfaces/userData";
 import * as jwt from 'jsonwebtoken';
 
 export default class AuthService implements IAuthService{
-    private users:userRepository;
+    private users:IUserRepository;
 
-    constructor(users:userRepository){
+    constructor(users:IUserRepository){
         this.users = users;    
     }
 
