@@ -3,11 +3,22 @@ import { ContactData } from "../../contact/interfaces/contactData";
 import { ContactEntity } from "../../entities/contact.entity";
 import dataSource from "../../connection/connection";
 import IContactRepository from "../interfaces/contactRepository";
+import e from "express";
 
 export class contactRepository implements IContactRepository{
     contacts:Repository<ContactEntity>;
     constructor(){
         this.contacts = dataSource.getRepository(ContactEntity);
+    }
+
+    async getContactById(contactId: string): Promise<ContactData | null> {
+        try {
+            const entity = await this.contacts.findOne({where:{id:contactId}});
+            return entity === null ? null : this.contactDataMapper(entity);
+        } catch (error) {
+            console.log(error,"context: getContactById")
+            return null;
+        }
     }
 
     async checkEmailExist(email: string): Promise<boolean | null> {
