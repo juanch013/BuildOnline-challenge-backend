@@ -1,5 +1,5 @@
 import userData from "../../auth/interfaces/userData";
 
-export interface UserRepository{
+export default interface IUserRepository{
     getUserByCredentials(username:string,password:string):Promise<userData|null>
 }

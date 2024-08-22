@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
 import userData from '../../auth/interfaces/userData';
-import { UserRepository } from './../interfaces/userRepository';
+import IUserRepository from './../interfaces/userRepository';
 import { UserEntity } from '../../entities/user.entity';
 import dataSource from '../../connection/connection';
 
-export class userRepository implements UserRepository{
+export class userRepository implements IUserRepository{
     private users:Repository<UserEntity>
     constructor(){
         this.users = dataSource.getRepository(UserEntity);
