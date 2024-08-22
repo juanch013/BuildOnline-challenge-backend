@@ -2,7 +2,6 @@ import { IAuthService } from './../interfaces/authService';
 import { Request,Response } from "express"
 import LoginResponse from '../../../common/types/loginResponse'
 import { IAuthController } from '../interfaces/authController';
-import { LoginDto } from '../dtos/loginDto';
 import {InternalError, UnautorizedError} from '../../../common/errors/errors'
 
 export class authController implements IAuthController {
