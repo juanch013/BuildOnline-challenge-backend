@@ -18,4 +18,15 @@ export default class contactController implements IContactController{
             return res.status(InternalError.code).json(InternalError)
         }
     }
+
+    async getContact(req:Request,res:Response): Promise<Response> {
+        try {
+            const {contactId} = req.params
+            const getContactResponse = await this.constactService.getContact(contactId);
+            return res.status(getContactResponse.code).json(getContactResponse);
+        } catch (error) {
+            console.log(error,"context: getContact")
+            return res.status(InternalError.code).json(InternalError)
+        }
+    }
 }
