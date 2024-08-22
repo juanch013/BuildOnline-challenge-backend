@@ -6,8 +6,8 @@ import contactController from '../contactController';
 const createContactFactory = (req:Request,res:Response) => {
     const contactRepo = new contactRepository();
     const contactServ = new contactService(contactRepo);
-    const authCon = new contactController(contactServ)
-    return authCon.createContact(req,res);
+    const contactCon = new contactController(contactServ)
+    return contactCon.createContact(req,res);
 };
 
 export default createContactFactory;
