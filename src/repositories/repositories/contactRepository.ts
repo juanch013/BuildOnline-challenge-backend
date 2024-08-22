@@ -10,6 +10,15 @@ export class contactRepository implements IContactRepository{
         this.contacts = dataSource.getRepository(ContactEntity);
     }
 
+    async checkEmailExist(email: string): Promise<boolean | null> {
+        try {
+            return await this.contacts.exists({where:{email:email}});
+        } catch (error) {
+            console.log(error,"context: checkEmialExist")
+            return null;
+        }
+    }
+
     async createContact(name:string,phoneNumber:string,email:string):Promise<ContactData | null>{
         try {
             const save = await this.contacts.save({name,phoneNumber,email});
