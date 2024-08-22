@@ -1,11 +1,9 @@
-import { Response } from 'express';
-import { create } from "domain";
 import IContactRepository from "../../repositories/interfaces/contactRepository";
 import { CreateContactDto } from "../dtos/createContactDto";
-import { ContactData } from "../interfaces/contactData";
 import { IContactService } from "../interfaces/contactService";
 import CreateContactResponse from "../../../common/types/createContactResponse"
 import { InternalError } from "../../../common/errors/errors";
+import GetContactResponse from '../../../common/types/getContactResponse';
 
 export class contactService implements IContactService{
     contact:IContactRepository
@@ -44,6 +42,33 @@ export class contactService implements IContactService{
         } catch (error) {
             console.log(error,"context: createContact");
             return InternalError;        
+        }
+    }
+
+    async getContact(contactId: string): Promise<GetContactResponse> {
+        try {
+            const contactDetail = await this.contact.getContactById(contactId);
+
+            if(!contactDetail){
+                const response:GetContactResponse = {
+                    code:404,
+                    message:"contact not found",
+                    data:{}
+                }
+                return response;
+            }
+
+            const response:GetContactResponse = {
+                code:200,
+                message:"contact detail",
+                data:contactDetail
+            }
+
+            return response;
+
+        } catch (error) {
+            console.log(error,"context: getContact");
+            return InternalError; 
         }
     }
 }
