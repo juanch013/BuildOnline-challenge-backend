@@ -5,12 +5,12 @@ export class ContactEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column('varchar')
   name: string;
 
-  @Column()
+  @Column('varchar')
   email: string;
 
-  @Column({name:"phone_number"})
+  @Column('varchar',{name:"phone_number"})
   phoneNumber: string;
 }
