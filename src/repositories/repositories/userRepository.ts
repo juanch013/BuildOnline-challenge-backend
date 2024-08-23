@@ -10,6 +10,15 @@ export class userRepository implements IUserRepository{
         this.users = dataSource.getRepository(UserEntity);
     }
 
+    async chekUserById(id:string):Promise<boolean|null>{
+        try {
+            return await this.users.exists({where:{id:id}});
+        } catch (error) {
+            console.log(error,"context: chekUserById")
+            return null;
+        }
+    }
+
     async getUserByCredentials(username:string,password:string):Promise<userData|null>{
         try {
 

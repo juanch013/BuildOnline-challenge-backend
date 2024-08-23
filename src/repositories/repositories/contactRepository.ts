@@ -3,11 +3,15 @@ import { ContactData } from "../../contact/interfaces/contactData";
 import { ContactEntity } from "../../entities/contact.entity";
 import dataSource from "../../connection/connection";
 import IContactRepository from "../interfaces/contactRepository";
+import { UserEntity } from "../../entities/user.entity";
 
 export class contactRepository implements IContactRepository{
     private contacts:Repository<ContactEntity>;
+    private users:Repository<UserEntity>
+
     constructor(){
         this.contacts = dataSource.getRepository(ContactEntity);
+        this.users = dataSource.getRepository(UserEntity);
     }
 
     async getContactById(contactId: string): Promise<ContactData | null> {
@@ -63,9 +67,15 @@ export class contactRepository implements IContactRepository{
         }
     }
 
-    async createContact(name:string,phoneNumber:string,email:string):Promise<ContactData | null>{
+    async createContact(userId:string,name:string,phoneNumber:string,email:string):Promise<ContactData | null>{
         try {
-            const save = await this.contacts.save({name,phoneNumber,email});
+            const user = await this.users.findOne({where:{id:userId}})
+
+            if(!user){
+                return null
+            }
+
+            const save = await this.contacts.save({user,name,phoneNumber,email});
             return this.contactDataMapper(save);
         } catch (error) {
             console.log(error,"context: createContact")
@@ -75,7 +85,10 @@ export class contactRepository implements IContactRepository{
 
     contactDataMapper(contact:ContactEntity):ContactData{
         const contactData:ContactData = {
-            ...contact
+            id:contact.id,
+            name:contact.name,
+            phoneNumber:contact.phoneNumber,
+            email:contact.email
         }
         return contactData;
     }

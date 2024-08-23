@@ -5,7 +5,7 @@ import { ContactData } from "./contactData";
 import { UpdateContactResponse } from "./updateContactResponse";
 
 export interface IContactService{
-    createContact(contact: CreateContactDto): Promise<CreateContactResponse>
-    getContact(contactId:string):Promise<GetContactResponse>
-    updateContact(contactData:ContactData):Promise<UpdateContactResponse>
+    createContact(userId:string,contact: CreateContactDto): Promise<CreateContactResponse>;
+    getContact(contactId:string):Promise<GetContactResponse>;
+    updateContact(contactData:ContactData):Promise<UpdateContactResponse>;
 }

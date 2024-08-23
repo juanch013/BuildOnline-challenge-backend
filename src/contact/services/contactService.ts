@@ -1,3 +1,4 @@
+import { userRepository } from './../../repositories/repositories/userRepository';
 import IContactRepository from "../../repositories/interfaces/contactRepository";
 import { CreateContactDto } from "../dtos/createContactDto";
 import { IContactService } from "../interfaces/contactService";
@@ -6,11 +7,14 @@ import { InternalError } from "../../../common/errors/errors";
 import GetContactResponse from '../../../common/types/responses/getContactResponse';
 import { ContactData } from "../interfaces/contactData";
 import { UpdateContactResponse } from "../interfaces/updateContactResponse";
+import IUserRepository from '../../repositories/interfaces/userRepository';
 
 export class contactService implements IContactService{
-    contact:IContactRepository
-    constructor(contact:IContactRepository){
+    private contact:IContactRepository
+    private user:IUserRepository
+    constructor(contact:IContactRepository,user:IUserRepository){
         this.contact = contact;
+        this.user = user;
     }
 
     async updateContact(contactData: ContactData): Promise<UpdateContactResponse> {
@@ -58,9 +62,20 @@ export class contactService implements IContactService{
         }
     }
 
-    async createContact(contact: CreateContactDto): Promise<CreateContactResponse> {
+    async createContact(userId:string,contact: CreateContactDto): Promise<CreateContactResponse> {
         try {
             const {name,email,phoneNumber} = contact
+
+            const checkUser = await this.user.chekUserById(userId);
+
+            if(!checkUser){
+                const response:CreateContactResponse = {
+                    code:400,
+                    message:"invalid user",
+                    data:{}
+                }
+                return response
+            }
             
             const checkEmail = await this.contact.checkEmailExist(email);
 
@@ -73,7 +88,7 @@ export class contactService implements IContactService{
                 return response
             }
 
-            const contactData = await this.contact.createContact(contact.name,contact.phoneNumber,contact.email);
+            const contactData = await this.contact.createContact(userId,name,phoneNumber,email);
 
             if(!contactData){
                 return InternalError;
