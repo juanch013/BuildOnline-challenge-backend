@@ -4,6 +4,8 @@ import { IContactService } from "../interfaces/contactService";
 import CreateContactResponse from "../../../common/types/responses/createContactResponse"
 import { InternalError } from "../../../common/errors/errors";
 import GetContactResponse from '../../../common/types/responses/getContactResponse';
+import { ContactData } from "../interfaces/contactData";
+import { UpdateContactResponse } from "../interfaces/updateContactResponse";
 
 export class contactService implements IContactService{
     contact:IContactRepository
@@ -11,7 +13,52 @@ export class contactService implements IContactService{
         this.contact = contact;
     }
 
-    async createContact(contact: CreateContactDto): Promise< CreateContactResponse> {
+    async updateContact(contactData: ContactData): Promise<UpdateContactResponse> {
+        try {
+            const {id,email,phoneNumber,name} = contactData;
+
+            const checkContactExist = await this.contact.checkContactIdExist(id)
+
+            if(!checkContactExist){
+                const response:UpdateContactResponse = {
+                    code:400,
+                    message:"contact does not exist",
+                    data:{}
+                }
+                return response;
+            }
+
+            const checkEmailExist = await this.contact.checkEmailExist(email);
+
+            if(!checkEmailExist){
+                const response:UpdateContactResponse = {
+                    code:400,
+                    message:"email is in use by other contact",
+                    data:{}
+                }
+                return response;
+            }
+
+            const updateResp = await this.contact.updateContactData(id,email,phoneNumber,name)
+
+            if(!updateResp){
+                return InternalError
+            }
+
+            const response:UpdateContactResponse = {
+                code:200,
+                message:"contact updated successfully",
+                data:updateResp
+            }
+            return response;
+
+        } catch (error) {
+            console.log(error,"context: createContact");
+            return InternalError; 
+        }
+    }
+
+    async createContact(contact: CreateContactDto): Promise<CreateContactResponse> {
         try {
             const {name,email,phoneNumber} = contact
             
