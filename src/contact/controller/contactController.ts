@@ -35,8 +35,9 @@ export default class contactController implements IContactController{
         }
     }
 
-    async updateContact(req:Request,res:Response): Promise<Response>{
+    async updateContact(req:IRequest,res:Response): Promise<Response>{
         try {
+            const {id} = req.loggedUser as MyJwtPayload;
             const {contactId} = req.params
             const body:UpdateContactDto = req.body
 
@@ -45,7 +46,7 @@ export default class contactController implements IContactController{
                 id:contactId
             }
 
-            const updateResponse = await this.constactService.updateContact(contactData);
+            const updateResponse = await this.constactService.updateContact(id,contactData);
             return res.status(updateResponse.code).json(updateResponse);
         } catch (error) {
             console.log(error,"context: updateContact")

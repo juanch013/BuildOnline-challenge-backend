@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import { userRepository } from './../../repositories/repositories/userRepository';
 import IContactRepository from "../../repositories/interfaces/contactRepository";
 import { CreateContactDto } from "../dtos/createContactDto";
@@ -6,8 +7,9 @@ import CreateContactResponse from "../../../common/types/responses/createContact
 import { InternalError } from "../../../common/errors/errors";
 import GetContactResponse from '../../../common/types/responses/getContactResponse';
 import { ContactData } from "../interfaces/contactData";
-import { UpdateContactResponse } from "../interfaces/updateContactResponse";
+import { UpdateContactResponse } from "../../../common/types/responses/updateContactResponse";
 import IUserRepository from '../../repositories/interfaces/userRepository';
+import { ListContactsResponse } from '../../../common/types/responses/listContactsResponse';
 
 export class contactService implements IContactService{
     private contact:IContactRepository
@@ -17,11 +19,60 @@ export class contactService implements IContactService{
         this.user = user;
     }
 
-    async updateContact(contactData: ContactData): Promise<UpdateContactResponse> {
+    async listContacts(userId:string,page:number,quantity:number):Promise<ListContactsResponse>{
+        try {
+            const checkUser = await this.user.chekUserById(userId);
+
+            if(!checkUser){
+                const response:CreateContactResponse = {
+                    code:400,
+                    message:"invalid user",
+                    data:{}
+                }
+                return response 
+            }
+
+            const listContactsResp = await this.contact.listContactsPaginated(userId,page,quantity)
+
+            if(!listContactsResp){
+                const response:CreateContactResponse = {
+                    code:400,
+                    message:"invalid user",
+                    data:{}
+                }
+                return response 
+            }
+
+            const listContactResponse:ListContactsResponse = {
+                code:200,
+                message:"List contacts for logged in user",
+                data:listContactsResp
+            }
+    
+            return listContactResponse;
+
+        } catch (error) {
+            console.log(error,"context: listContacts");
+            return InternalError;
+        }
+    }
+
+    async updateContact(userId:string,contactData: ContactData): Promise<UpdateContactResponse> {
         try {
             const {id,email,phoneNumber,name} = contactData;
 
-            const checkContactExist = await this.contact.checkContactIdExist(id)
+            const checkUser = await this.user.chekUserById(userId);
+
+            if(!checkUser){
+                const response:CreateContactResponse = {
+                    code:400,
+                    message:"invalid user",
+                    data:{}
+                }
+                return response 
+            }
+
+            const checkContactExist = await this.contact.checkContactIdExistForUser(userId,id)
 
             if(!checkContactExist){
                 const response:UpdateContactResponse = {
@@ -43,7 +94,7 @@ export class contactService implements IContactService{
                 return response;
             }
 
-            const updateResp = await this.contact.updateContactData(id,email,phoneNumber,name)
+            const updateResp = await this.contact.updateContactData(userId,id,email,phoneNumber,name)
 
             if(!updateResp){
                 return InternalError
@@ -133,4 +184,5 @@ export class contactService implements IContactService{
             return InternalError; 
         }
     }
+
 }

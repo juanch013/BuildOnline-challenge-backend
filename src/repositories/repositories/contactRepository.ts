@@ -33,17 +33,36 @@ export class contactRepository implements IContactRepository{
         }
     }
 
-    async checkContactIdExist(id: string): Promise<boolean | null> {
+    async checkContactIdExistForUser(userId:string,id: string): Promise<boolean | null> {
         try {
-            return await this.contacts.exists({where:{id:id}});
+            const user = await this.users.findOne({where:{id:userId}});
+
+            if(!user){
+                return null;
+            }
+
+            return await this.contacts.exists(
+                {
+                    where:{
+                        id:id,
+                        user:user
+                    }
+                }
+            );
         } catch (error) {
             console.log(error,"context: checkContactIdExist")
             return null;
         }
     }
 
-    async updateContactData(id:string,name:string,email:string,phoneNumber:string):Promise<ContactData | null>{
+    async updateContactData(userId:string,id:string,name:string,email:string,phoneNumber:string):Promise<ContactData | null>{
         try {
+            const user = await this.users.findOne({where:{id:userId}});
+
+            if(!user){
+                return null;
+            }
+
             const updateResult = await this.contacts.update(id,{
                 name:name,
                 phoneNumber:phoneNumber,

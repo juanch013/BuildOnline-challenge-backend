@@ -15,6 +15,6 @@
       "outDir": "./dist",
       "strictPropertyInitialization": false
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", "common/types/responses/updateContactResponse.ts"],
     "exclude": ["node_modules"]
   }
