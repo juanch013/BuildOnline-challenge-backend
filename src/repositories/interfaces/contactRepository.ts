@@ -5,5 +5,6 @@ export default interface IContactRepository{
     checkEmailExist(email:string):Promise<boolean | null>;
     getContactById(contactId:string):Promise<ContactData | null>;
     checkContactIdExist(id: string): Promise<boolean | null>;
-    updateContactData(id:string,name:string,email:string,phoneNumber:string):Promise<ContactData | null>
+    updateContactData(id:string,name:string,email:string,phoneNumber:string):Promise<ContactData | null>;
+    listContactsPaginated(userId:string,page:number,quantity:number):Promise<ContactData[] | null>;
 }

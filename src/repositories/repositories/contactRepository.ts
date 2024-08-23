@@ -83,6 +83,30 @@ export class contactRepository implements IContactRepository{
         }
     }
 
+    async listContactsPaginated(userId:string,page:number,quantity:number):Promise<ContactData[] | null>{
+        try {
+            const user = await this.users.findOne({where:{id:userId}});
+
+            if(!user){
+                return null;
+            }
+
+            const listResponse = await this.contacts.find(
+                {
+                    where:{user:user},
+                    skip:page,
+                    take:quantity
+                }
+            )
+
+            return listResponse.map(contact => this.contactDataMapper(contact));
+
+        } catch (error) {
+            console.log(error,"context: listContactsPaginated")
+            return null;
+        }
+    }
+
     contactDataMapper(contact:ContactEntity):ContactData{
         const contactData:ContactData = {
             id:contact.id,
