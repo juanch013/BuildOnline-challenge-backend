@@ -5,7 +5,7 @@ import dataSource from "../../connection/connection";
 import IContactRepository from "../interfaces/contactRepository";
 
 export class contactRepository implements IContactRepository{
-    contacts:Repository<ContactEntity>;
+    private contacts:Repository<ContactEntity>;
     constructor(){
         this.contacts = dataSource.getRepository(ContactEntity);
     }
@@ -34,6 +34,31 @@ export class contactRepository implements IContactRepository{
             return await this.contacts.exists({where:{id:id}});
         } catch (error) {
             console.log(error,"context: checkContactIdExist")
+            return null;
+        }
+    }
+
+    async updateContactData(id:string,name:string,email:string,phoneNumber:string):Promise<ContactData | null>{
+        try {
+            const updateResult = await this.contacts.update(id,{
+                name:name,
+                phoneNumber:phoneNumber,
+                email:email
+            })
+
+            if(updateResult.affected === 0){
+                return null;
+            }
+
+            const newData:ContactData ={
+                id,
+                name,
+                phoneNumber,
+                email
+            } 
+            return newData;
+        } catch (error) {
+            console.log(error,"context: updateContactData")
             return null;
         }
     }
