@@ -30,7 +30,7 @@ export class contactService implements IContactService{
 
             const checkEmailExist = await this.contact.checkEmailExist(email);
 
-            if(!checkEmailExist){
+            if(checkEmailExist){
                 const response:UpdateContactResponse = {
                     code:400,
                     message:"email is in use by other contact",
