@@ -7,12 +7,14 @@ import getContactFactory from "../controller/factories/getContactFactory";
 import updateContactFactory from "../controller/factories/updateContactFactory";
 import verifyToken from "../../../middlewares/authorization/authorization"
 import { UpdateContactDto } from "../dtos/updateContactDto";
-
+import listContactFactory from "../controller/factories/listContactsFactory";
+import validateNumberParam from "../../../middlewares/validateNumberParam/validateNumberParam"
 const contactRouter = Router();
 
 contactRouter.use(verifyToken)
 
 contactRouter.post('/',validateDto(CreateContactDto),createContactFactory);
+contactRouter.get('/',validateNumberParam(['quantity','page']),listContactFactory);
 contactRouter.get('/:contactId',validateUuidParam("contactId"),getContactFactory);
 contactRouter.put('/:contactId',validateUuidParam("contactId"),validateDto(UpdateContactDto),updateContactFactory);
 

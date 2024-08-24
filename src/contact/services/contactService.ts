@@ -21,6 +21,10 @@ export class contactService implements IContactService{
 
     async listContacts(userId:string,page:number,quantity:number):Promise<ListContactsResponse>{
         try {
+
+            page = isNaN(page) ? 1 : page
+            quantity = isNaN(quantity) ? 10 : quantity
+
             const checkUser = await this.user.chekUserById(userId);
 
             if(!checkUser){
@@ -83,7 +87,7 @@ export class contactService implements IContactService{
                 return response;
             }
 
-            const checkEmailExist = await this.contact.checkEmailExist(email);
+            const checkEmailExist = await this.contact.checkEmailExist(userId,email);
 
             if(checkEmailExist){
                 const response:UpdateContactResponse = {
@@ -128,7 +132,7 @@ export class contactService implements IContactService{
                 return response
             }
             
-            const checkEmail = await this.contact.checkEmailExist(email);
+            const checkEmail = await this.contact.checkEmailExist(userId,email);
 
             if(checkEmail){
                 const response:CreateContactResponse = {

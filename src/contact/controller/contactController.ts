@@ -53,4 +53,18 @@ export default class contactController implements IContactController{
             return res.status(InternalError.code).json(InternalError)
         }
     }
+
+    async listContacts(req:IRequest,res:Response):Promise<Response>{
+        try {
+            const {id} = req.loggedUser as MyJwtPayload;
+            const {page,quantity} = req.query
+
+            const listedContacts = await this.constactService.listContacts(id,Number(page),Number(quantity))
+            return res.status(listedContacts.code).json(listedContacts);
+
+        } catch (error) {
+            console.log(error,"context: listContacts")
+            return res.status(InternalError.code).json(InternalError)
+        }
+    }
 }

@@ -118,6 +118,7 @@ export class contactRepository implements IContactRepository{
     async listContactsPaginated(userId:string,page:number,quantity:number):Promise<ContactData[] | null>{
         try {
             const user = await this.users.findOne({where:{id:userId}});
+            const skip:number = (page - 1) * quantity;
 
             if(!user){
                 return null;
@@ -126,7 +127,7 @@ export class contactRepository implements IContactRepository{
             const listResponse = await this.contacts.find(
                 {
                     where:{user:user},
-                    skip:page,
+                    skip:skip,
                     take:quantity,
                     order:{createdAt:'DESC'}
                 }
