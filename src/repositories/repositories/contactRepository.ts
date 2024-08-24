@@ -24,9 +24,22 @@ export class contactRepository implements IContactRepository{
         }
     }
 
-    async checkEmailExist(email: string): Promise<boolean | null> {
+    async checkEmailExist(userId:string,email: string): Promise<boolean | null> {
         try {
-            return await this.contacts.exists({where:{email:email}});
+            const user = await this.users.findOne({where:{id:userId}});
+            
+            if(!user){
+                return null;
+            }
+
+            return await this.contacts.exists(
+                {
+                    where:{
+                        email:email,
+                        user:user
+                    }
+                }
+            );
         } catch (error) {
             console.log(error,"context: checkEmialExist")
             return null;
@@ -114,7 +127,8 @@ export class contactRepository implements IContactRepository{
                 {
                     where:{user:user},
                     skip:page,
-                    take:quantity
+                    take:quantity,
+                    order:{createdAt:'DESC'}
                 }
             )
 
