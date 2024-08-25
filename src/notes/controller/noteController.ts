@@ -22,4 +22,18 @@ export default class NoteController implements INoteController{
             return res.status(InternalError.code).json(InternalError);
         }
     }
+
+    async listNotes(req:IRequest,res:Response):Promise<Response>{
+        try {
+            const {id} = req.loggedUser as MyJwtPayload;
+            const {page,quantity} = req.query
+
+            const list = await this.note.listNotesPaginated(id,Number(page),Number(quantity));
+            return res.status(list.code).json(list);
+            
+        } catch (error) {
+            console.log(error,"context: createNote");
+            return res.status(InternalError.code).json(InternalError); 
+        }
+    }
 }
