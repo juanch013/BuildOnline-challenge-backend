@@ -1,11 +1,10 @@
-import { contactRepository } from './../../repositories/repositories/contactRepository';
 import { InternalError } from './../../../common/errors/errors';
 import CreateNoteResponse from "../../../common/types/responses/createNoteResponse";
 import INoteRepository from "../../repositories/interfaces/noteRepository";
 import INoteService from "../interfaces/noteService";
 import IUserRepository from '../../repositories/interfaces/userRepository';
-import { Code } from 'typeorm';
 import IContactRepository from '../../repositories/interfaces/contactRepository';
+import ListNotesResponse from "../../../common/types/responses/listNotesResponse";
 
 export default class NoteService implements INoteService{
     private user:IUserRepository
@@ -61,7 +60,48 @@ export default class NoteService implements INoteService{
             return response;
 
         } catch (error) {
-            console.log(error,"context:createNote");
+            console.log(error,"context: createNote");
+            return InternalError;
+        }
+    }
+
+    async listNotesPaginated(userId:string,page:number,quantity:number):Promise<ListNotesResponse>{
+        try {
+            page = isNaN(page) ? 1 : page
+            quantity = isNaN(quantity) ? 10 : quantity
+
+            const userExist = await this.user.chekUserById(userId);
+
+            if(!userExist){
+                const response:CreateNoteResponse = {
+                    code:400,
+                    message:"user invalid",
+                    data:{}
+                }
+                return response;
+            }
+
+            const list = await this.note.listNotesPaginated(userId,page,quantity);
+
+            if(!list){
+                const errorResponse:CreateNoteResponse = {
+                    code:400,
+                    message:"error listing notes",
+                    data:{}
+                }
+                return errorResponse;
+            }
+
+            const response:ListNotesResponse = {
+                code:200,
+                message:"listed notes",
+                data:list
+            }
+
+            return response;
+
+        } catch (error) {
+            console.log(error,"context: listNotesPaginated");
             return InternalError;
         }
     }
