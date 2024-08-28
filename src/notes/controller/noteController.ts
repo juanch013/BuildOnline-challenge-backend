@@ -36,4 +36,16 @@ export default class NoteController implements INoteController{
             return res.status(InternalError.code).json(InternalError); 
         }
     }
+
+    async getNoteById(req:IRequest,res:Response):Promise<Response>{
+        try {
+            const {id} = req.loggedUser as MyJwtPayload;
+            const {noteId} = req.params
+            const getNote = await this.note.getNoteById(id,noteId);
+            return res.status(getNote.code).json(getNote);
+        } catch (error) {
+            console.log(error,"context: getNoteById");
+            return res.status(InternalError.code).json(InternalError); 
+        }
+    }
 }

@@ -5,6 +5,7 @@ import INoteService from "../interfaces/noteService";
 import IUserRepository from '../../repositories/interfaces/userRepository';
 import IContactRepository from '../../repositories/interfaces/contactRepository';
 import ListNotesResponse from "../../../common/types/responses/listNotesResponse";
+import GetNoteResponse from "../../../common/types/responses/getNoteResponse";
 
 export default class NoteService implements INoteService{
     private user:IUserRepository
@@ -102,6 +103,43 @@ export default class NoteService implements INoteService{
 
         } catch (error) {
             console.log(error,"context: listNotesPaginated");
+            return InternalError;
+        }
+    }
+
+    async getNoteById(userId:string,noteId:string):Promise<GetNoteResponse>{
+        try {
+            const noteOwner = await this.note.checkNoteOwner(userId,noteId);
+
+            if(!noteOwner){
+                const response:CreateNoteResponse = {
+                    code:400,
+                    message:"logged user does not own the note",
+                    data:{}
+                }
+                return response;
+            }
+
+            const note = await this.note.getNotebById(userId,noteId);
+
+            if(!note){
+                const errorResponse:CreateNoteResponse = {
+                    code:500,
+                    message:"error getting note detail",
+                    data:{}
+                }
+                return errorResponse;
+            }
+            
+            const response:GetNoteResponse = {
+                code:200,
+                message:"note detail",
+                data:note
+            }
+            return response;
+
+        } catch (error) {
+            console.log(error,"context: getNoteById")
             return InternalError;
         }
     }

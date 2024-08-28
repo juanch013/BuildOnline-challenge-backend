@@ -35,11 +35,29 @@ export class noteRepository implements INoteRepository{
         }
     }
 
+    async checkNoteOwner(userId:string,noteId:string):Promise<boolean | null>{
+        try{
+            return await this.note.exists({
+                where:{
+                    id:noteId,
+                    contact:{
+                        user:{
+                            id:userId
+                        }
+                    }
+                }
+            })
+        }catch(error){
+            console.log(error,"context: checkNoteOwner");
+            return null;
+        }
+    }
+
     noteDataMapper(contact:ContactEntity,note:NoteEntity):noteData{
         const noteData:noteData = {
             note:note.note,
             id:note.id,
-            createdAt:note.createdAt.toString()
+            createdAt:note.createdAt.toISOString()
             //image = contact.image
         }
         return noteData;
@@ -72,7 +90,37 @@ export class noteRepository implements INoteRepository{
         }
     }
 
-    async getNotebById(){}
+    async getNotebById(userId:string,id:string):Promise<noteData | null>{
+        try {
+            const user = await this.user.findOne({where:{id:userId}});
+            
+            if(!user){
+                return null;
+            }
+
+            const note = await this.note.findOne(
+                {
+                    where:{
+                        id:id,
+                        contact:{
+                            user:user
+                        }
+                    },
+                    relations:['contact']
+                }
+            );
+
+            if(!note){
+                return null;
+            }
+
+            return this.noteDataMapper(note.contact,note);
+
+            } catch (error) {
+            console.log(error,"context: getNotebById")
+            return null;
+        }
+    }
 
     
 }
