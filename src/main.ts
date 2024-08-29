@@ -2,6 +2,7 @@ import express from 'express'
 import apiRouter from './apiRouter'
 import dotenv from 'dotenv'
 import dataSource from "./connection/connection"
+import 'reflect-metadata'
 dotenv.config()
 
 const app = express();
