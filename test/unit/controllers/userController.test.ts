@@ -62,19 +62,26 @@ describe('UserController - get user', () => {
         const mockUserData:GetUserResponse = {
             "code": 400,
             "message": "logged user does not own the note",
-            "data": {}
+            "data": [
+                {
+                    id:"ed810faf-a00a-468f-b432-dee8e26694e6",
+                    note:"note 1",
+                    createdAt:"2024-08-25T04:58:55.981Z"
+                },
+                {
+                    id:"ed810faf-a00a-468f-b432-dee8e26694e5",
+                    note:"note 2",
+                    createdAt:"2024-08-26T04:58:55.981Z"
+                }
+            ]
         };
 
-        // Configuramos el mock para que lance un error
         (mockUserService.getUserData as jest.Mock).mockResolvedValue(mockUserData);
 
-        // Llamamos al método que estamos probando
         await userController.getUser(req as IRequest, res as Response);
 
-        // Verificamos que el servicio fue llamado correctamente
         expect(mockUserService.getUserData).toHaveBeenCalledWith('123');
         
-        // Verificamos que la respuesta fue configurada como un error interno
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith(mockUserData);
     });

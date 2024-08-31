@@ -84,16 +84,12 @@ describe('AuthController - login', () => {
 
         req = mockRequest(mockLoginDto);
 
-        // Configuramos el mock para que lance un error
         (mockAuthService.login as jest.Mock).mockResolvedValue(UnautorizedError);
 
-        // Llamamos al método que estamos probando
         await authControl.login(req as Request, res as Response);
 
-        // Verificamos que el servicio fue llamado correctamente
         expect(mockAuthService.login).toHaveBeenCalledWith(mockLoginDto);
         
-        // Verificamos que la respuesta fue configurada como un error interno
         expect(res.status).toHaveBeenCalledWith(401);
         expect(res.json).toHaveBeenCalledWith(UnautorizedError);
     });
