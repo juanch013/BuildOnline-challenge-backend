@@ -86,7 +86,7 @@ export default class NoteService implements INoteService{
 
             if(!list){
                 const errorResponse:CreateNoteResponse = {
-                    code:400,
+                    code:500,
                     message:"error listing notes",
                     data:{}
                 }

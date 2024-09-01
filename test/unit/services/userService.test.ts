@@ -18,7 +18,7 @@ const mockUserRepository: IUserRepository = {
     getUserById: jest.fn(),
 };
 
-describe('AuthService - login', () => {
+describe('userService - getUser', () => {
     let userServ: IUserService;
 
     beforeEach(() => {
