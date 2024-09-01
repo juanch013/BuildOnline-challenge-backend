@@ -8,7 +8,9 @@ import { LoginDto } from '../../../src/auth/dtos/loginDto';
 
 
 const mockAuthService: IAuthService = {
-    login: jest.fn()
+    login: jest.fn(),
+    findUserByCredentials: jest.fn(),
+    createJwt: jest.fn(),
 };
 
 const mockResponse = (): Partial<Response> => {

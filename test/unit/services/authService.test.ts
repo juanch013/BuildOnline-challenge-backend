@@ -1,3 +1,4 @@
+import { IAuthService } from './../../../src/auth/interfaces/authService';
 import { userRepository } from './../../../src/repositories/repositories/userRepository';
 import AuthService from "../../../src/auth/service/authService";
 import IUserRepository from "../../../src/repositories/interfaces/userRepository";
@@ -8,7 +9,7 @@ import * as jwt from 'jsonwebtoken';
 import exp from "constants";
 import { InternalError } from "../../../common/errors/errors";
 
-jest.mock('jsonwebtoken'); // Mockea la librería jsonwebtoken
+jest.mock('jsonwebtoken');
 
 const mockUserRepository: IUserRepository = {
     getUserByCredentials: jest.fn(),
@@ -17,7 +18,7 @@ const mockUserRepository: IUserRepository = {
 };
 
 describe('AuthService - login', () => {
-    let authService: AuthService;
+    let authService: IAuthService;
 
     beforeEach(() => {
         authService = new AuthService(mockUserRepository);
