@@ -73,7 +73,7 @@ describe('AuthService - login', () => {
     it('should return null when exeption is handled', async () => {
         const mockUserId = "84635bee-03c3-42a2-807e-4c7bdc8aba62";
 
-        (mockUserRepository.getUserById as jest.Mock).mockRejectedValue(new Error());
+        (mockUserRepository.getUserById as jest.Mock).mockRejectedValue(new Error);
 
         const result = await userServ.getUserData(mockUserId);
 
