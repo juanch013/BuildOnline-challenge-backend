@@ -21,7 +21,6 @@ export class contactService implements IContactService{
 
     async listContacts(userId:string,page:number,quantity:number):Promise<ListContactsResponse>{
         try {
-
             page = isNaN(page) ? 1 : page
             quantity = isNaN(quantity) ? 10 : quantity
 
@@ -40,8 +39,8 @@ export class contactService implements IContactService{
 
             if(!listContactsResp){
                 const response:CreateContactResponse = {
-                    code:400,
-                    message:"invalid user",
+                    code:500,
+                    message:"error listing contacts",
                     data:{}
                 }
                 return response 
