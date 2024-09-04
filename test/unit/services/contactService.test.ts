@@ -1,11 +1,5 @@
-import { UpdateContactDto } from './../../../src/contact/dtos/updateContactDto';
 import { contactService } from './../../../src/contact/services/contactService';
-import AuthService from "../../../src/auth/service/authService";
 import IUserRepository from "../../../src/repositories/interfaces/userRepository";
-import LoginResponse from "../../../common/types/responses/loginResponse";
-import { LoginDto } from "../../../src/auth/dtos/loginDto";
-import userData from "../../../src/auth/interfaces/userData";
-import * as jwt from 'jsonwebtoken';
 import { InternalError } from "../../../common/errors/errors";
 import { IContactService } from '../../../src/contact/interfaces/contactService';
 import IContactRepository from '../../../src/repositories/interfaces/contactRepository';
@@ -14,8 +8,6 @@ import { ContactData } from '../../../src/contact/interfaces/contactData';
 import { CreateContactDto } from '../../../src/contact/dtos/createContactDto';
 import GetContactResponse from '../../../common/types/responses/getContactResponse';
 
-jest.mock('jsonwebtoken');
-
 const mockContactRepository: IContactRepository = {
     createContact: jest.fn(),
     checkEmailExist: jest.fn(),
@@ -23,6 +15,7 @@ const mockContactRepository: IContactRepository = {
     checkContactIdExistForUser: jest.fn(),
     updateContactData: jest.fn(),
     listContactsPaginated: jest.fn(),
+    contactDataMapper: jest.fn(),
 };
 
 const mockUserRepository: IUserRepository = {

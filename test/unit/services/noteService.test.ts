@@ -1,6 +1,5 @@
 import { noteData } from './../../../src/notes/interfaces/noteData';
 import IUserRepository from "../../../src/repositories/interfaces/userRepository";
-import LoginResponse from "../../../common/types/responses/loginResponse";
 import { InternalError } from "../../../common/errors/errors";
 import IContactRepository from '../../../src/repositories/interfaces/contactRepository';
 import INoteRepository from "../../../src/repositories/interfaces/noteRepository";
@@ -8,9 +7,7 @@ import INoteService from '../../../src/notes/interfaces/noteService';
 import NoteService from "../../../src/notes/service/noteService"
 import CreateNoteResponse from '../../../common/types/responses/createNoteResponse';
 import ListNotesResponse from '../../../common/types/responses/listNotesResponse';
-import { error } from 'console';
 
-jest.mock('jsonwebtoken');
 
 const mockUserRepository: IUserRepository = {
     getUserByCredentials: jest.fn(),
@@ -25,6 +22,7 @@ const mockContactRepository: IContactRepository = {
     listContactsPaginated: jest.fn(),
     checkEmailExist: jest.fn(),
     checkContactIdExistForUser: jest.fn(),
+    contactDataMapper: jest.fn(),
 };
 
 const mockNoteRepository: INoteRepository = {

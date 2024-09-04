@@ -1,16 +1,9 @@
-import { userRepository } from './../../../src/repositories/repositories/userRepository';
-import AuthService from "../../../src/auth/service/authService";
 import IUserRepository from "../../../src/repositories/interfaces/userRepository";
-import LoginResponse from "../../../common/types/responses/loginResponse";
-import { LoginDto } from "../../../src/auth/dtos/loginDto";
 import userData from "../../../src/auth/interfaces/userData";
-import * as jwt from 'jsonwebtoken';
 import { InternalError } from "../../../common/errors/errors";
 import IUserService from "../../../src/user/interfaces/userService"
 import userService from "../../../src/user/service/userService"
 import GetUserResponse from '../../../common/types/responses/getUserResponse';
-
-jest.mock('jsonwebtoken');
 
 const mockUserRepository: IUserRepository = {
     getUserByCredentials: jest.fn(),
