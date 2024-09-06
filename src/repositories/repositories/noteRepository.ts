@@ -58,7 +58,6 @@ export class noteRepository implements INoteRepository{
             note:note.note,
             id:note.id,
             createdAt:note.createdAt.toISOString()
-            //image = contact.image
         }
         return noteData;
     }
