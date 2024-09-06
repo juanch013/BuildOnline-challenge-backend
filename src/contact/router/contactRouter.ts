@@ -1,3 +1,4 @@
+import { upload } from './../../upload';
 import {Router} from "express";
 import {validateDto} from '../../../middlewares/validateDto/validateDto'
 import { CreateContactDto } from "../dtos/createContactDto";
@@ -11,11 +12,12 @@ import listContactFactory from "../controller/factories/listContactsFactory";
 import validateNumberParam from "../../../middlewares/validateNumberParam/validateNumberParam"
 import createNoteFactory from "../../notes/controller/factories/createNoteFactory";
 import CreateNoteDto from "../dtos/createNoteDto";
+import checkFile from "../../../middlewares/checkImage/checkImage"
 const contactRouter = Router();
 
 contactRouter.use(verifyToken)
 
-contactRouter.post('/',validateDto(CreateContactDto),createContactFactory);
+contactRouter.post('/',upload.single('image'),checkFile,validateDto(CreateContactDto),createContactFactory);
 contactRouter.get('/',validateNumberParam(['quantity','page']),listContactFactory);
 contactRouter.get('/:contactId',validateUuidParam("contactId"),getContactFactory);
 contactRouter.put('/:contactId',validateUuidParam("contactId"),validateDto(UpdateContactDto),updateContactFactory);
