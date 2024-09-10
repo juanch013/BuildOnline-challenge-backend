@@ -46,7 +46,7 @@ describe('NoteRepository - createNote', () => {
     it('should return note data after creating it', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -85,7 +85,7 @@ describe('NoteRepository - createNote', () => {
     it('should return null when the contact is not found', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -116,7 +116,7 @@ describe('NoteRepository - createNote', () => {
     it('should return null when an exception is handled', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -185,7 +185,7 @@ describe('NoteRepository - checkNoteOwner', () => {
 
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -206,7 +206,7 @@ describe('NoteRepository - checkNoteOwner', () => {
     it('should return false when the logged user does not own the note', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -228,7 +228,7 @@ describe('NoteRepository - checkNoteOwner', () => {
 
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -287,7 +287,7 @@ describe('NoteRepository - listNotesPaginated', () => {
     it('should return list of notes paginated', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -344,7 +344,7 @@ describe('NoteRepository - listNotesPaginated', () => {
     it('should return null when user does not exist', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -372,7 +372,7 @@ describe('NoteRepository - listNotesPaginated', () => {
     it('should return null when exception is handled', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -438,7 +438,7 @@ describe('NoteRepository - getNoteById', () => {
     it('should return note data', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -477,7 +477,7 @@ describe('NoteRepository - getNoteById', () => {
     it('should return null when user do not exist', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -508,7 +508,7 @@ describe('NoteRepository - getNoteById', () => {
     it('should return null when exception is handled', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -539,7 +539,7 @@ describe('NoteRepository - getNoteById', () => {
     it('should return null when error occurs getting the note', async () => {     
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };

@@ -42,7 +42,7 @@ describe('ContactController - createContact', () => {
 
     beforeEach(() => {
         contactControl = new contactController(mockContactService);
-        let loggedUser = { id: '123',username:"user1" } as MyJwtPayload, 
+        let loggedUser = { id: '123',email:"user1" } as MyJwtPayload, 
         req = mockRequest({},{},loggedUser,{});
         res = mockResponse();
     });
@@ -67,7 +67,7 @@ describe('ContactController - createContact', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockCreateContactDto,{},mockLoggedUser,{});
@@ -93,7 +93,7 @@ describe('ContactController - createContact', () => {
 
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockCreateContactDto,{},mockLoggedUser,{});
@@ -117,7 +117,7 @@ describe('ContactController - createContact', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockCreateContactDto,{},mockLoggedUser,{});
@@ -142,7 +142,7 @@ describe('ContactController - getContact', () => {
 
     beforeEach(() => {
         contactControl = new contactController(mockContactService);
-        let loggedUser = { id: '123',username:"user1" } as MyJwtPayload, 
+        let loggedUser = { id: '123',email:"user1" } as MyJwtPayload, 
         req = mockRequest({},{},loggedUser,{});
         res = mockResponse();
     });
@@ -167,7 +167,7 @@ describe('ContactController - getContact', () => {
 
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},mockUrlParams,mockLoggedUser,{});
@@ -192,7 +192,7 @@ describe('ContactController - getContact', () => {
 
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},mockUrlParams,mockLoggedUser,{});
@@ -216,7 +216,7 @@ describe('ContactController - getContact', () => {
 
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},mockUrlParams,mockLoggedUser,{});
@@ -240,7 +240,7 @@ describe('ContactController - updateContact', () => {
 
     beforeEach(() => {
         contactControl = new contactController(mockContactService);
-        let loggedUser = { id: '123',username:"user1" } as MyJwtPayload, 
+        let loggedUser = { id: '123',email:"user1" } as MyJwtPayload, 
         req = mockRequest({},{},loggedUser,{});
         res = mockResponse();
     });
@@ -269,7 +269,7 @@ describe('ContactController - updateContact', () => {
         }
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockupdateContactDto,mockUrlParams,mockLoggedUser,{});
@@ -297,7 +297,7 @@ describe('ContactController - updateContact', () => {
         }
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockupdateContactDto,mockUrlParams,mockLoggedUser,{});
@@ -325,7 +325,7 @@ describe('ContactController - updateContact', () => {
         }
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockupdateContactDto,mockUrlParams,mockLoggedUser,{});
@@ -349,7 +349,7 @@ describe('ContactController - listContact', () => {
 
     beforeEach(() => {
         contactControl = new contactController(mockContactService);
-        let loggedUser = { id: '123',username:"user1" } as MyJwtPayload, 
+        let loggedUser = { id: '123',email:"user1" } as MyJwtPayload, 
         req = mockRequest({},{},loggedUser,{});
         res = mockResponse();
     });
@@ -382,7 +382,7 @@ describe('ContactController - listContact', () => {
         }
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},{},mockLoggedUser,mockQueryParams);
@@ -406,7 +406,7 @@ describe('ContactController - listContact', () => {
         }
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},{},mockLoggedUser,mockQueryParams);
@@ -431,7 +431,7 @@ describe('ContactController - listContact', () => {
         }
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},{},mockLoggedUser,mockQueryParams);

@@ -34,12 +34,12 @@ describe('AuthService - login', () => {
         };
 
         const mockLoginDto: LoginDto = {
-            username: "user1",
+            email: "user1",
             password: "user_1234"
         };
 
         const mockGetUserByCredentialsData: userData = {
-            username: "user1",
+            email: "user1",
             id: "84635bee-03c3-42a2-807e-4c7bdc8aba62"
         };
 
@@ -48,7 +48,7 @@ describe('AuthService - login', () => {
         (jwt.sign as jest.Mock).mockReturnValue(mockToken);
         const result = await authService.login(mockLoginDto);
 
-        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.username, mockLoginDto.password);
+        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.email, mockLoginDto.password);
         expect(jwt.sign).toHaveBeenCalledWith(mockGetUserByCredentialsData, expect.any(String), { expiresIn: '1h' });
         
         expect(result).toEqual(expectedResponse);
@@ -63,7 +63,7 @@ describe('AuthService - login', () => {
         };
 
         const mockLoginDto: LoginDto = {
-            username: "user1",
+            email: "user1",
             password: "user_1234"
         };
 
@@ -71,19 +71,19 @@ describe('AuthService - login', () => {
 
         const result = await authService.login(mockLoginDto);
 
-        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.username, mockLoginDto.password);
+        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.email, mockLoginDto.password);
 
         expect(result).toEqual(mockExpectedResponse);
     });
 
     it('should return internal error when exeption is handled', async () => {
         const mockLoginDto: LoginDto = {
-            username: "user1",
+            email: "user1",
             password: "user_1234"
         };
 
         const mockGetUserByCredentialsData: userData = {
-            username: "user1",
+            email: "user1",
             id: "84635bee-03c3-42a2-807e-4c7bdc8aba62"
         };
 
@@ -92,7 +92,7 @@ describe('AuthService - login', () => {
             throw new Error("JWT creation failed");
         });
         const result = await authService.login(mockLoginDto);
-        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.username, mockLoginDto.password);
+        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.email, mockLoginDto.password);
         expect(result).toEqual(InternalError);
     });
 });
@@ -107,7 +107,7 @@ describe('AuthService - createJwt', () => {
 
     it('should return token', async () => {
         const mockUserData: userData = {
-            username: "user1",
+            email: "user1",
             id: "84635bee-03c3-42a2-807e-4c7bdc8aba62"
         };
         jest.spyOn(jwt, 'sign').mockImplementation(() => {
@@ -121,7 +121,7 @@ describe('AuthService - createJwt', () => {
 
     it('should return unauthorized when credentials are incorrect', async () => {
         const mockUserData: userData = {
-            username: "user1",
+            email: "user1",
             id: "84635bee-03c3-42a2-807e-4c7bdc8aba62"
         };
 
@@ -147,46 +147,46 @@ describe('AuthService - findUserByCredentials', () => {
 
     it('should return userData', async () => {
         const mockLoginDto: LoginDto = {
-            username: "user1",
+            email: "user1",
             password: "84635bee"
         };
 
         const mockUserData: userData = {
-            username: "user1",
+            email: "user1",
             id: "84635bee-03c3-42a2-807e-4c7bdc8aba62"
         };
     
         (mockUserRepository.getUserByCredentials as jest.Mock).mockResolvedValue(mockUserData);
         
 
-        const result = await authService.findUserByCredentials(mockLoginDto.username,mockLoginDto.password);
-        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.username,mockLoginDto.password);
+        const result = await authService.findUserByCredentials(mockLoginDto.email,mockLoginDto.password);
+        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.email,mockLoginDto.password);
         expect(result).toBe(mockUserData);
     });
 
     it('should return null when credentials are incorrect', async () => {
         const mockLoginDto: LoginDto = {
-            username: "user1",
+            email: "user1",
             password: "84635bee"
         };
 
         (mockUserRepository.getUserByCredentials as jest.Mock).mockResolvedValue(null);
 
-        const result = await authService.findUserByCredentials(mockLoginDto.username,mockLoginDto.password);
-        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.username,mockLoginDto.password);
+        const result = await authService.findUserByCredentials(mockLoginDto.email,mockLoginDto.password);
+        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.email,mockLoginDto.password);
         expect(result).toBe(null);
     });
 
     it('should return null when an errors occurs', async () => {
         const mockLoginDto: LoginDto = {
-            username: "user1",
+            email: "user1",
             password: "84635bee"
         };
 
         (mockUserRepository.getUserByCredentials as jest.Mock).mockRejectedValue(new Error());
 
-        const result = await authService.findUserByCredentials(mockLoginDto.username,mockLoginDto.password);
-        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.username,mockLoginDto.password);
+        const result = await authService.findUserByCredentials(mockLoginDto.email,mockLoginDto.password);
+        expect(mockUserRepository.getUserByCredentials).toHaveBeenCalledWith(mockLoginDto.email,mockLoginDto.password);
         expect(result).toBe(null);
     });
 });

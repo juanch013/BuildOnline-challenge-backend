@@ -28,14 +28,14 @@ describe('usersRepository - getUserById', () => {
     it('should return User data', async () => {
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
 
         const mockUserData:userData = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
         };
         
         (mockUsersRepo.findOne as jest.Mock).mockResolvedValue(mockUserEntity);
@@ -48,7 +48,7 @@ describe('usersRepository - getUserById', () => {
     it('should return null when an exception is handled', async () => {
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -63,7 +63,7 @@ describe('usersRepository - getUserById', () => {
     it('should return null when user is not found', async () => {
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -128,19 +128,19 @@ describe('usersRepository - getUserById', () => {
         it('should return User data', async () => {
             const mockUserEntity:UserEntity = {
                 id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-                username:"user 1",
+                email:"user 1",
                 password:"1234",
                 contacts:[]
             };
     
             const mockUserData:userData = {
                 id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-                username:"user 1",
+                email:"user 1",
             };
             
             (mockUsersRepo.findOne as jest.Mock).mockResolvedValue(mockUserEntity);
     
-            const result = await usersRepo.getUserByCredentials(mockUserEntity.username,mockUserEntity.password);
+            const result = await usersRepo.getUserByCredentials(mockUserEntity.email,mockUserEntity.password);
     
             expect(result).toEqual(mockUserData);
         });
@@ -148,14 +148,14 @@ describe('usersRepository - getUserById', () => {
         it('should return null when an exception is handled', async () => {
             const mockUserEntity:UserEntity = {
                 id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-                username:"user 1",
+                email:"user 1",
                 password:"1234",
                 contacts:[]
             };
             
             (mockUsersRepo.findOne as jest.Mock).mockRejectedValue(new Error());
     
-            const result = await usersRepo.getUserByCredentials(mockUserEntity.username,mockUserEntity.password);
+            const result = await usersRepo.getUserByCredentials(mockUserEntity.email,mockUserEntity.password);
     
             expect(result).toEqual(null);
         });
@@ -163,14 +163,14 @@ describe('usersRepository - getUserById', () => {
         it('should return null when user is not found', async () => {
             const mockUserEntity:UserEntity = {
                 id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-                username:"user 1",
+                email:"user 1",
                 password:"1234",
                 contacts:[]
             };
             
             (mockUsersRepo.findOne as jest.Mock).mockResolvedValue(null);
     
-            const result = await usersRepo.getUserByCredentials(mockUserEntity.username,mockUserEntity.password);
+            const result = await usersRepo.getUserByCredentials(mockUserEntity.email,mockUserEntity.password);
     
             expect(result).toEqual(null);
         });
