@@ -15,9 +15,9 @@ export default class AuthService implements IAuthService{
 
     async login(body:LoginDto):Promise<LoginResponse>{
         try {
-            const {password,username} = body;
+            const {password,email} = body;
 
-            const userData = await this.findUserByCredentials(username,password);
+            const userData = await this.findUserByCredentials(email,password);
 
             if(!userData){
                 return UnautorizedError
@@ -39,9 +39,9 @@ export default class AuthService implements IAuthService{
         }
     }
 
-    async findUserByCredentials(username:string,password:string):Promise<userData | null>{
+    async findUserByCredentials(email:string,password:string):Promise<userData | null>{
         try {
-            return await this.users.getUserByCredentials(username,password);
+            return await this.users.getUserByCredentials(email,password);
         } catch (error) {
             console.log(error,"context: findUserByCredentials");
             return null;

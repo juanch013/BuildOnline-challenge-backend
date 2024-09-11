@@ -43,11 +43,11 @@ export class userRepository implements IUserRepository{
         }
     }
 
-    async getUserByCredentials(username:string,password:string):Promise<userData|null>{
+    async getUserByCredentials(email:string,password:string):Promise<userData|null>{
         try {
-
-            const userFind = await this.users.findOne({where:{username,password}});
-
+            
+            
+            const userFind = await this.users.findOne({where:{email,password}});
             if(!userFind){
                 return null;
             }
@@ -62,7 +62,7 @@ export class userRepository implements IUserRepository{
 
     private userDataMapper(user:UserEntity):userData{
         const userData:userData = {
-            username:user.username,
+            email:user.email,
             id:user.id
         }
         return userData;

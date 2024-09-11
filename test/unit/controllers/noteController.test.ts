@@ -32,7 +32,7 @@ describe('NoteController - createNote', () => {
 
     beforeEach(() => {
         noteController = new NoteController(mockNoteService);
-        let loggedUser = { id: '123',username:"user1" } as MyJwtPayload, 
+        let loggedUser = { id: '123',email:"user1" } as MyJwtPayload, 
         req = mockRequest({},{},loggedUser,{});
         res = mockResponse();
     });
@@ -56,7 +56,7 @@ describe('NoteController - createNote', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockCreateNoteDto,{contactId:contId},mockLoggedUser,{});
@@ -80,7 +80,7 @@ describe('NoteController - createNote', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockCreateNoteDto,{contactId:contId},mockLoggedUser,{});
@@ -110,7 +110,7 @@ describe('NoteController - createNote', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockCreateNoteDto,{contactId:contId},mockLoggedUser,{});
@@ -134,7 +134,7 @@ describe('NoteController - createNote', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest(mockCreateNoteDto,{contactId:contId},mockLoggedUser,{});
@@ -157,7 +157,7 @@ describe('NoteController - listNotes', () => {
 
     beforeEach(() => {
         noteController = new NoteController(mockNoteService);
-        let loggedUser = { id: '123',username:"user1" } as MyJwtPayload, 
+        let loggedUser = { id: '123',email:"user1" } as MyJwtPayload, 
         req = mockRequest({},{},loggedUser,{});
         res = mockResponse();
     });
@@ -190,7 +190,7 @@ describe('NoteController - listNotes', () => {
         
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},{},mockLoggedUser,mockQueryParams);
@@ -217,7 +217,7 @@ describe('NoteController - listNotes', () => {
         
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},{},mockLoggedUser,mockQueryParams);
@@ -244,7 +244,7 @@ describe('NoteController - listNotes', () => {
         
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},{},mockLoggedUser,mockQueryParams);
@@ -269,7 +269,7 @@ describe('NoteController - getNoteById', () => {
 
     beforeEach(() => {
         noteController = new NoteController(mockNoteService);
-        let loggedUser = { id: '123',username:"user1" } as MyJwtPayload, 
+        let loggedUser = { id: '123',email:"user1" } as MyJwtPayload, 
         req = mockRequest({},{},loggedUser,{});
         res = mockResponse();
     });
@@ -292,7 +292,7 @@ describe('NoteController - getNoteById', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},mockUrlPrams,mockLoggedUser,{});
@@ -315,7 +315,7 @@ describe('NoteController - getNoteById', () => {
         };
         const mockLoggedUser:MyJwtPayload = {
             id:userId,
-            username:"usuario 1"
+            email:"usuario 1"
         };
 
         req = mockRequest({},mockUrlPrams,mockLoggedUser,{});

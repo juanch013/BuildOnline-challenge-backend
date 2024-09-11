@@ -44,7 +44,7 @@ describe('AuthController - login', () => {
         };
 
         const mockLoginDto:LoginDto = {
-            username:"user1",
+            email:"user1",
             password:"user_1234"    
         };
 
@@ -62,7 +62,7 @@ describe('AuthController - login', () => {
 
     it('should return internal error when service fails', async () => {
         const mockLoginDto:LoginDto = {
-            username:"user1",
+            email:"user1",
             password:"user_1234"    
         };
 
@@ -80,7 +80,7 @@ describe('AuthController - login', () => {
 
     it('should return status 401 when login fails', async () => {
         const mockLoginDto:LoginDto = {
-            username:"user1",
+            email:"user1",
             password:"user_1234"    
         };
 

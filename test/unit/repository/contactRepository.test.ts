@@ -33,7 +33,7 @@ describe('contactRepository - getContactById', () => {
         };
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -58,7 +58,7 @@ describe('contactRepository - getContactById', () => {
     it('should return null when error is handled', async () => {
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -83,7 +83,7 @@ describe('contactRepository - getContactById', () => {
     it('should return null when userId does not exist', async () => {
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -137,7 +137,7 @@ describe('contactRepository - checkEmailExist', () => {
     it('should return true when exist a contact with the email for the logged user', async () => {
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -213,7 +213,7 @@ describe('contactRepository - checkContactIdExistForUser', () => {
     it('should return true when the contact exist for logged user', async () => {
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -296,7 +296,7 @@ describe('contactRepository - UpdateContact', () => {
         };
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -326,7 +326,7 @@ describe('contactRepository - UpdateContact', () => {
         };
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -354,7 +354,7 @@ describe('contactRepository - UpdateContact', () => {
         };
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -375,7 +375,7 @@ describe('contactRepository - UpdateContact', () => {
         };
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -428,7 +428,7 @@ describe('contactRepository - CreateContact', () => {
 
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -462,7 +462,7 @@ describe('contactRepository - CreateContact', () => {
         
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -484,7 +484,7 @@ describe('contactRepository - CreateContact', () => {
         
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -508,7 +508,7 @@ describe('contactRepository - CreateContact', () => {
         
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -570,7 +570,7 @@ describe('contactRepository - listContactsPaginated', () => {
 
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -591,7 +591,7 @@ describe('contactRepository - listContactsPaginated', () => {
 
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };
@@ -611,7 +611,7 @@ describe('contactRepository - listContactsPaginated', () => {
 
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            username:"user 1",
+            email:"user 1",
             password:"1234",
             contacts:[]
         };

@@ -25,13 +25,13 @@ describe('userService - getUser', () => {
             code:200,
             message:"user detail",
             data:{
-                username: "user1",
+                email: "user1",
                 id: "84635bee-03c3-42a2-807e-4c7bdc8aba62"
             }
         };
 
         const mockUserData:userData = {
-             username: "user1",
+             email: "user1",
             id: "84635bee-03c3-42a2-807e-4c7bdc8aba62"
         }
 

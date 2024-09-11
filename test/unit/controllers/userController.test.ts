@@ -26,7 +26,7 @@ describe('UserController - get user', () => {
     beforeEach(() => {
         userController = new UserController(mockUserService);
         req = {
-            loggedUser: { id: '123',username:"user1" } as MyJwtPayload,
+            loggedUser: { id: '123',email:"user1" } as MyJwtPayload,
         };
         res = mockResponse();
     });
@@ -35,7 +35,7 @@ describe('UserController - get user', () => {
         const mockUserData:GetUserResponse = {
             code: 200,
             message:"user detail",
-            data: { id: '123', username: 'John Doe' },
+            data: { id: '123', email: 'John Doe' },
         };
         (mockUserService.getUserData as jest.Mock).mockResolvedValue(mockUserData);
 
