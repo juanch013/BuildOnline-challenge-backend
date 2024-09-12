@@ -363,13 +363,37 @@ describe('ContactController - listContact', () => {
                     name:"contact 1",
                     email:"contact1@gmail.com",
                     phoneNumber:"099111222",
-                    id:"fb3a6abd-f7bd-41c6-9ead-58722f1a6747"
+                    id:"fb3a6abd-f7bd-41c6-9ead-58722f1a6747",
+                    note:[
+                        {
+                            id:"ed810faf-a00a-468f-b432-dee8e26694e6",
+                            note:"note 1",
+                            createdAt:"2024-08-25T04:58:55.981Z"
+                        },
+                        {
+                            id:"ed810faf-a00a-468f-b432-dee8e2669477",
+                            note:"note 2",
+                            createdAt:"2024-08-25T04:58:55.981Z"
+                        }
+                    ]
                 },
                 {
                     name:"contact 2",
                     email:"contact2@gmail.com",
                     phoneNumber:"099111333",
-                    id:"fb3a6abd-f7bd-41c6-9ead-58722f1a6759"
+                    id:"fb3a6abd-f7bd-41c6-9ead-58722f1a6759",
+                    note:[
+                        {
+                            id:"ed810faf-a00a-468f-b432-dee8e26694e6",
+                            note:"note 1",
+                            createdAt:"2024-08-25T04:58:55.981Z"
+                        },
+                        {
+                            id:"ed810faf-a00a-468f-b432-dee8e2669477",
+                            note:"note 2",
+                            createdAt:"2024-08-25T04:58:55.981Z"
+                        }
+                    ]
                 }
             ]
         };

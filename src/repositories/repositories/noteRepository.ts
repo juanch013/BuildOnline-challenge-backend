@@ -6,6 +6,7 @@ import dataSource from "../../connection/connection";
 import { Repository } from "typeorm";
 import { ContactEntity } from "../../entities/contact.entity";
 import { UserEntity } from '../../entities/user.entity';
+import { noteDataMapper } from '../mappers/noteDataMapper';
 
 export class noteRepository implements INoteRepository{
     private note:Repository<NoteEntity>
@@ -28,7 +29,7 @@ export class noteRepository implements INoteRepository{
 
             const noteRet:NoteEntity = await this.note.save({note:note,contact:contact});
 
-            return this.noteDataMapper(contact,noteRet);
+            return noteDataMapper(noteRet);
         } catch (error) {
             console.log(error,"context:createNote");
             return null;
@@ -53,15 +54,6 @@ export class noteRepository implements INoteRepository{
         }
     }
 
-    noteDataMapper(contact:ContactEntity,note:NoteEntity):noteData{
-        const noteData:noteData = {
-            note:note.note,
-            id:note.id,
-            createdAt:note.createdAt.toISOString()
-        }
-        return noteData;
-    }
-
     async listNotesPaginated(userid:string,page:number,quantity:number):Promise<noteData[] | null>{
         try {
                 const skip = (page - 1) * quantity
@@ -81,7 +73,7 @@ export class noteRepository implements INoteRepository{
                     }
                 )
 
-                return listedNotes.map(note => this.noteDataMapper(note.contact,note))
+                return listedNotes.map(note => noteDataMapper(note))
 
         } catch (error) {
           console.log(error,"context: listNotesPaginated");
@@ -113,7 +105,7 @@ export class noteRepository implements INoteRepository{
                 return null;
             }
 
-            return this.noteDataMapper(note.contact,note);
+            return noteDataMapper(note);
 
             } catch (error) {
             console.log(error,"context: getNotebById")

@@ -7,8 +7,8 @@ import dataSource from '../../../src/connection/connection';
 import { UserEntity } from '../../../src/entities/user.entity';
 import UserService from '../../../src/user/service/userService';
 import { UpdateResult } from 'typeorm/browser';
-
-
+import { noteDataMapper } from '../../../src/repositories/mappers/noteDataMapper';
+import { NoteEntity } from '../../../src/entities/note.entity';
 
 describe('contactRepository - getContactById', () => {
     let contactRepo: IContactRepository;
@@ -29,7 +29,8 @@ describe('contactRepository - getContactById', () => {
             name:"contact 1",
             email:"contact1@gmail.com",
             phoneNumber:"099111222",
-            id:"f84cb343-c466-4089-8d61-1c98bbd98dd2"
+            id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+            note:[]
         };
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
@@ -85,7 +86,7 @@ describe('contactRepository - getContactById', () => {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
             email:"user 1",
             password:"1234",
-            contacts:[]
+            contacts:[],
         };
 
         const mockContactEntity:ContactEntity = {
@@ -423,7 +424,8 @@ describe('contactRepository - CreateContact', () => {
             name:"contact 1",
             email:"contact1@gmail.com",
             phoneNumber:"099111222",
-            id:"f84cb343-c466-4089-8d61-1c98bbd98dd2"
+            id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+            note:[]
         };
 
         const mockUserEntity:UserEntity = {
@@ -553,34 +555,119 @@ describe('contactRepository - listContactsPaginated', () => {
     });
 
     it('should return contacts data for logged user', async () => {
+
         const mockContactData:ContactData[] = [
             {
                 name:"contact 1",
                 email:"contact1@gmail.com",
                 phoneNumber:"099111222",
-                id:"f84cb343-c466-4089-8d61-1c98bbd98dd2"
+                id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+                note:[
+                    {
+                        "note": "eeeeee",
+                        "id": "1745ce32-7131-43ef-aaaf-3d976c5e83bf",
+                        "createdAt": new Date("2024-09-12T01:46:31.629Z").toISOString()
+                    },
+                    {
+                        "note": "cccccc",
+                        "id": "7eda1573-1722-4efa-b784-aa18cae08ed9",
+                        "createdAt": new Date("2024-09-12T01:46:31.629Z").toISOString()
+                    },
+                    {
+                        "note": "dddddd",
+                        "id": "c2e4293e-3f29-4e1d-bc90-5f13400d73cf",
+                        "createdAt": new Date("2024-09-12T01:46:31.629Z").toISOString()
+                    }
+                ]
             },
             {
                 name:"contact 2",
                 email:"contact2@gmail.com",
                 phoneNumber:"099111333",
-                id:"f84cb343-c466-4089-8d61-1c98bbd22222"
+                id:"f84cb343-c466-4089-8d61-1c98bbd22222",
+                note:[]
             }
         ];
 
         const mockUserEntity:UserEntity = {
             id:"07375735-bd6c-46ee-adcd-2a73f76826ef",
-            email:"user 1",
-            password:"1234",
+            email:"user2@gmail.com",
+            password:"12345678",
             contacts:[]
         };
+
+        const mockNotesEntities:NoteEntity[] = [
+            {
+                "note": "eeeeee",
+                "id": "1745ce32-7131-43ef-aaaf-3d976c5e83bf",
+                "createdAt": new Date("2024-09-12T01:46:31.629Z"),
+                "contact":{
+                    name:"contact 1",
+                    email:"contact1@gmail.com",
+                    phoneNumber:"099111222",
+                    id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+                    notes:[],
+                    user:mockUserEntity,
+                    createdAt: new Date("2024-09-12T01:46:31.629Z")
+                }
+              },
+              {
+                "note": "cccccc",
+                "id": "7eda1573-1722-4efa-b784-aa18cae08ed9",
+                "createdAt": new Date("2024-09-12T01:46:31.629Z"),
+                "contact":{
+                    name:"contact 1",
+                    email:"contact1@gmail.com",
+                    phoneNumber:"099111222",
+                    id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+                    notes:[],
+                    user:mockUserEntity,
+                    createdAt: new Date("2024-09-12T01:46:31.629Z")
+                }
+              },
+              {
+                "note": "dddddd",
+                "id": "c2e4293e-3f29-4e1d-bc90-5f13400d73cf",
+                "createdAt": new Date("2024-09-12T01:46:31.629Z"),
+                "contact":{
+                    name:"contact 1",
+                    email:"contact1@gmail.com",
+                    phoneNumber:"099111222",
+                    id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+                    notes:[],
+                    user:mockUserEntity,
+                    createdAt: new Date("2024-09-12T01:46:31.629Z")
+                }
+              }
+        ]
+
+        const mockContactEntity:ContactEntity[] = [
+            {
+                name:"contact 1",
+                email:"contact1@gmail.com",
+                phoneNumber:"099111222",
+                id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+                notes:mockNotesEntities,
+                user:mockUserEntity,
+                createdAt: new Date("2024-09-12T01:46:31.629Z")
+            },
+            {
+                name:"contact 2",
+                email:"contact2@gmail.com",
+                phoneNumber:"099111333",
+                id:"f84cb343-c466-4089-8d61-1c98bbd22222",
+                notes:[],
+                user:mockUserEntity,
+                createdAt: new Date("2024-09-12T01:46:31.629Z")
+            }
+        ];
 
         const page = 1;
         const quantity = 2;
 
         (mockUsersRepo.findOne as jest.Mock).mockResolvedValue(mockUserEntity);
 
-        (mockContactsRepo.find as jest.Mock).mockResolvedValue(mockContactData);
+        (mockContactsRepo.find as jest.Mock).mockResolvedValue(mockContactEntity);
 
         const result = await contactRepo.listContactsPaginated(mockUserEntity.id,page,quantity);
 

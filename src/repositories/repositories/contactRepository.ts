@@ -4,6 +4,7 @@ import { ContactEntity } from "../../entities/contact.entity";
 import dataSource from "../../connection/connection";
 import IContactRepository from "../interfaces/contactRepository";
 import { UserEntity } from "../../entities/user.entity";
+import { noteDataMapper } from "../mappers/noteDataMapper";
 
 export class contactRepository implements IContactRepository{
     private contacts:Repository<ContactEntity>;
@@ -129,7 +130,8 @@ export class contactRepository implements IContactRepository{
                     where:{user:user},
                     skip:skip,
                     take:quantity,
-                    order:{createdAt:'DESC'}
+                    order:{createdAt:'DESC'},
+                    relations:['notes']
                 }
             )
 
@@ -146,7 +148,8 @@ export class contactRepository implements IContactRepository{
             id:contact.id,
             name:contact.name,
             phoneNumber:contact.phoneNumber,
-            email:contact.email
+            email:contact.email,
+            note: contact.notes === undefined ? [] : contact.notes.map(note => noteDataMapper(note))
         }
         return contactData;
     }
