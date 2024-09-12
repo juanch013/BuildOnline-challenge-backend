@@ -39,13 +39,15 @@ describe('ContactService - listContactPaginated', () => {
                 name:"contact 1",
                 email:"contact1@gmail.com",
                 phoneNumber:"099111222",
-                id:"f84cb343-c466-4089-8d61-1c98bbd98dd2"
+                id:"f84cb343-c466-4089-8d61-1c98bbd98dd2",
+                note:[]
             },
             {
                 name:"contact 2",
                 email:"contact2@gmail.com",
                 phoneNumber:"099111333",
-                id:"05c43bea-681f-42c3-80fa-8d0072e5a3e5"
+                id:"05c43bea-681f-42c3-80fa-8d0072e5a3e5",
+                note:[]
             }
         ]
         const page = 1
