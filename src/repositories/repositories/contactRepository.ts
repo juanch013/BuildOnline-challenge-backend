@@ -130,7 +130,7 @@ export class contactRepository implements IContactRepository{
                     where:{user:user},
                     skip:skip,
                     take:quantity,
-                    order:{createdAt:'DESC'},
+                    order:{createdAt:'DESC',notes:{createdAt:'DESC'}},
                     relations:['notes']
                 }
             )
